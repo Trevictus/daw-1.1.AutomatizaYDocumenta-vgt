@@ -23,12 +23,11 @@ jobs:
 
       # Configurar JDK y Maven
       - name: Setup Java JDK and Maven
-        uses: actions/setup-java@5.0.0
+        uses: actions/setup-java@v3
         with: 
           java-version: '21'
           distribution: temurin
           cache: maven
-          maven-version: latest
 
       # Genera documentación Javadoc desde cero.
       - name: Generate Javadoc
