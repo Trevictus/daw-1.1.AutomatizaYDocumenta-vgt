@@ -1,26 +1,60 @@
 name: CI con autocommit
 
 on:
+# Se ejecuta en cada push.
   push:
-    branches: [ "main" ]
+  # En la rama main.
+    branches:
+    - main
   workflow_dispatch:
 
+# Permisos de escritura.
 permissions:
   contents: write
 
 jobs:
-  test-and-update:
+  generate-docs:
+  # Se ejecuta en la última versión de ubuntu.
     runs-on: ubuntu-latest
     steps:
+    # Clonar el repo.
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Deploy JavaDoc
-        uses: MathieuSoysal/Javadoc-publisher.yml@v3.0.2
+      # Configurar JDK y Maven
+      - name: Setup Java JDK and Maven
+        uses: actions/setup-java@5.0.0
+        with: 
+          java-version: '21'
+          distribution: temurin
+          cache: maven
+          maven-version: latest
+
+      # Genera documentación Javadoc desde cero.
+      - name: Generate Javadoc
+        run: mvn clean javadoc:javadoc
+
+      # Crear la ruta de destino.
+      - name: Move Javadoc to custom path
+        run: |
+          mkdir -p docs/_build/html
+          rm -rf docs/_build/html/*
+          cp -r target/site/apidocs/. docs/_build/html/
+
+      # Subir artefactos.
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          javadoc-branch: javadoc
-          java-version: 17
-          target-folder: javadoc
-          project: maven
+          name: javadoc-html
+          path: docs/_build/html/
+
+      # Configuración de Git.
+      - name: Commit and push Javadoc
+        run: |
+          git config --global user.name "victor-gomez-tejada"
+          git config --global user.email "vgomtej353@g.educaand.es"
+          git add docs/_build/html/
+          git commit -m "Actualización automática de Javadoc" || echo "No hay cambios para commitear"
+          git push
+
       
