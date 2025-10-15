@@ -4,9 +4,22 @@ Víctor Gómez Tejada
 vgomtej353@g.educaand.es  
 2ºDAW-DAW-U1-1.1.Automatiza y documenta
 
-# Documentación del proceso y preguntas
+# Funcionamiento del workflow
 
-## Herramientas utilizadas
+* Mediante [trigger](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L3C1-L9C21) se ejecutará el workflow en cada push a la rama principal y con `workflow_dispatch` se podrá lanzar este desde Github manualmente.
+* Le damos [premisos](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L11-L13) al workflow de escritura, para que haga commits y push al repo.
+* La [ejecución](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L17-L18) será en una maquina virtual de ubuntu de ultima versión.
+* [Clonamos](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L19-L22) el repo para trabajar sobre el.
+* [Configuramos Java y Maven](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L24-L30), instalando la versión JDK21 y habilitamos la caché maven para acelerar las siguientes ejecuciones.
+* Para generar la documentación desde cero se [ejecuta Maven](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L32-L34) que creará la documentación por defecto en `target/site/apidocs`.
+* Debemos [mover la documentación HTML](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L36-L41) creada a la carpeta destino, para ello crearemos el directorio primero, luego haremos una copia del archivo nuevo en el directorio destino, no sin antes eliminar versiones anteriores.
+* Mediante el siguiente paso en el job [instalamos `wkhtmltopdf`](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L43-L47) en la maquina de ubuntu donde se está ejecutando el workflow.
+* Creamos la [carpeta para el PDF](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L49-L53) que se va a generar. Eliminando también el PDF anterior si existiese.
+* [Convertir HTML a PDF](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L55-L60). Mediante `--enable-local-file-access` le damos acceso local a la herramienta y con `docs/_build/html/index.html \ docs/pdf/report.pdf` se le indica que lo convierta.
+* [Se suben los artefactos](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L63-L70).
+* [Commit y push automático](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L72-L80). Se configura Git, añade los archivos generados y hace commits si hay cambios. `|| echo` muestra un mensaje en caso de que no los haya.
+
+# Documentación del proceso y preguntas
 
 a).- **Identificación de herramientas de generación de documentación. ¿Qué herramienta o generador** (p. ej., Sphinx, pdoc, Javadoc, Doxygen, Dokka) **utilizaste en el workflow para crear la documentación en /docs?**  
 
