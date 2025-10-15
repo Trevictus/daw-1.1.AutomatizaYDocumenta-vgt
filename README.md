@@ -4,6 +4,10 @@ Víctor Gómez Tejada
 vgomtej353@g.educaand.es  
 2ºDAW-DAW-U1-1.1.Automatiza y documenta
 
+# Proyecto CI con JavaDoc y PDF
+
+En este proyecto se implementa un workflow de integración continua en gitHub Actions automatizando la generación, conversión y publicación de documentación técnica para un proyecto Java.
+
 # Funcionamiento del workflow
 
 * Mediante [trigger](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L3C1-L9C21) se ejecutará el workflow en cada push a la rama principal y con `workflow_dispatch` se podrá lanzar este desde Github manualmente.
@@ -48,6 +52,8 @@ e).-	**Control de versiones. Muestra mensajes de commit que evidencien el nuevo 
 f).-	**Accesibilidad y seguridad. ¿Qué medidas/configuración del repositorio garantizan que solo personal autorizado accede al código y la documentación?** (p. ej., repositorio privado, equipos, roles, claves/secretos, branch protection)**.**  
 
 g).-	**Instalación/uso documentados. Indica dónde en el README.md explicas el funcionamiento del workflow y dónde detallas las herramientas y comandos de documentación.**  
+
+* [Funcionamiento del workflow](#funcionamiento-del-workflow)
 
 h).-	**Integración continua. Justifica por qué el workflow utilizado es CI. ¿Qué evento dispara automáticamente la generación/actualización de la documentación** (p. ej., push, pull_request, workflow_dispatch)?
 
