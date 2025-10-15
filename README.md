@@ -9,7 +9,7 @@ vgomtej353@g.educaand.es
 En este proyecto se implementa un workflow de integración continua en gitHub Actions automatizando la generación, conversión y publicación de documentación técnica para un proyecto Java. Utiliza `Javadoc` para crear documentación HTML y `wkhtmltopdf` para convertirla en PDF. 
 
 
-# Funcionamiento del workflow
+## Funcionamiento del workflow
 
 * Mediante [trigger](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L3C1-L9C21) se ejecutará el workflow en cada push a la rama principal y con `workflow_dispatch` se podrá lanzar este desde Github manualmente.
 * Le damos [premisos](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L11-L13) al workflow de escritura, para que haga commits y push al repo.
@@ -24,7 +24,7 @@ En este proyecto se implementa un workflow de integración continua en gitHub Ac
 * [Se suben los artefactos](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L63-L70).
 * [Commit y push automático](https://github.com/Trevictus/daw-1.1.AutomatizaYDocumenta-vgt/blob/362590477179d06b365545cbba94678b1366f59a/.github/workflows/main.yml#L72-L80). Se configura Git, añade los archivos generados y hace commits si hay cambios. `|| echo` muestra un mensaje en caso de que no los haya.
 
-# Documentación del proceso y preguntas
+## Documentación del proceso y preguntas
 
 a).- **Identificación de herramientas de generación de documentación. ¿Qué herramienta o generador** (p. ej., Sphinx, pdoc, Javadoc, Doxygen, Dokka) **utilizaste en el workflow para crear la documentación en /docs?**  
 
