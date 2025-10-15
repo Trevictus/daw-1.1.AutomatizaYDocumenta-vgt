@@ -40,8 +40,6 @@ jobs:
           rm -rf docs/_build/html/*
           cp -r target/site/apidocs/. docs/_build/html/
           
-            # Instalar wkhtmltopdf
-
       # Instalar wkhtmltopdf
       - name: Install wkhtmltopdf
         run: |
@@ -57,9 +55,12 @@ jobs:
       # Convertir index.html a report.pdf
       - name: Convert Javadoc HTML to PDF
         run: |
-          wkhtmltopdf docs/_build/html/index.html docs/pdf/report.pdf
+          wkhtmltopdf --enable-local-file-access \
+          docs/_build/html/index.html \
+          docs/pdf/report.pdf
+    
 
-      # Subir artefactos.
+    # Subir artefactos.
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.2
         with:
