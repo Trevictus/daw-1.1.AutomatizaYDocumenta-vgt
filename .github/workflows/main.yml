@@ -39,13 +39,34 @@ jobs:
           mkdir -p docs/_build/html
           rm -rf docs/_build/html/*
           cp -r target/site/apidocs/. docs/_build/html/
+          
+            # Instalar wkhtmltopdf
+
+      # Instalar wkhtmltopdf
+      - name: Install wkhtmltopdf
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wkhtmltopdf
+
+      # Crear carpeta para el PDF
+      - name: Prepare PDF output directory
+        run: |
+          mkdir -p docs/pdf
+          rm -f docs/pdf/report.pdf
+
+      # Convertir index.html a report.pdf
+      - name: Convert Javadoc HTML to PDF
+        run: |
+          wkhtmltopdf docs/_build/html/index.html docs/pdf/report.pdf
 
       # Subir artefactos.
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.6.2
         with:
           name: javadoc-html
-          path: docs/_build/html/
+          path: |
+            docs/_build/html/
+            docs/pdf/report.pdf
 
       # Configuración de Git.
       - name: Commit and push Javadoc
@@ -53,6 +74,7 @@ jobs:
           git config --global user.name "victor-gomez-tejada"
           git config --global user.email "vgomtej353@g.educaand.es"
           git add docs/_build/html/
+          git add docs/pdf/report.pdf
           git commit -m "Actualización automática de Javadoc" || echo "No hay cambios para commitear"
           git push
 
