@@ -6,7 +6,8 @@ vgomtej353@g.educaand.es
 
 # Proyecto CI con JavaDoc y PDF
 
-En este proyecto se implementa un workflow de integración continua en gitHub Actions automatizando la generación, conversión y publicación de documentación técnica para un proyecto Java.
+En este proyecto se implementa un workflow de integración continua en gitHub Actions automatizando la generación, conversión y publicación de documentación técnica para un proyecto Java. Utiliza `Javadoc` para crear documentación HTML y `wkhtmltopdf` para convertirla en PDF. 
+
 
 # Funcionamiento del workflow
 
